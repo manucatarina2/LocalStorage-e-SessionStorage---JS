@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Manu — Contato</title>
+<style>
+  :root{
+    --pink:#ff5aa8;
+    --black:#000;
+    --white:#fff;
+  }
+  body{font-family:Inter,Arial,sans-serif;margin:0;background:var(--white);color:var(--black);transition:background .25s,color .25s}
+  body.theme-dark{background:var(--black);color:var(--pink)}
+
+  /* NAVBAR */
+  .nav{
+    display:flex;justify-content:space-between;align-items:center;padding:12px 20px;
+    background:var(--black);color:var(--pink);
+  }
+  .nav a{color:var(--pink);text-decoration:none;margin-left:18px;font-weight:600}
+  .theme-btn{
+    background:transparent;border:2px solid var(--pink);border-radius:8px;
+    padding:6px;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(--pink)
+  }
+
+  .container{display:flex;justify-content:center;padding:40px}
+  .form-card{
+    width:400px;max-width:92%;background:var(--white);border:2px solid var(--pink);
+    border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,0.1);padding:20px;
+  }
+  body.theme-dark .form-card{background:#0b0b0b}
+  .form-card h2{margin-top:0;color:var(--black)}
+  body.theme-dark .form-card h2{color:var(--pink)}
+  .form-group{margin-bottom:14px;display:flex;flex-direction:column}
+  label{margin-bottom:6px;font-weight:600}
+  input,textarea{
+    padding:10px;border:2px solid var(--pink);border-radius:8px;
+    font-size:14px;background:#fff;color:#000;outline:none
+  }
+  body.theme-dark input, body.theme-dark textarea{background:#222;color:var(--pink)}
+  button{
+    background:var(--pink);border:none;padding:12px;width:100%;
+    border-radius:8px;cursor:pointer;font-weight:700;color:#000
+  }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--pink);
+        display:flex;align-items:center;justify-content:center;color:black;font-weight:800">M</div>
+      <a href="index.html" style="margin-left:14px">Início</a>
+      <a href="form.html">Contato</a>
+    </div>
+    <div class="right">
+      <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+        <!-- Sun -->
+        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none">
+          <path d="M12 4V2M12 22v-2M4.93 4.93L3.51 3.51M20.49 20.49l-1.42-1.42M4 12H2M22 12h-2M4.93 19.07l-1.42 1.42M20.49 3.51l-1.42 1.42M12 8a4 4 0 100 8 4 4 0 000-8z"
+            stroke="#ffb3d9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <!-- Moon -->
+        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+            stroke="#ffb3d9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span style="font-weight:700">Tema</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <form class="form-card" id="contactForm">
+      <h2>Contato</h2>
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="msg">Mensagem</label>
+        <textarea id="msg" rows="4" required></textarea>
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+  </main>
+
+<script>
+const THEME_KEY = 'sereia_tema';
+const body = document.body;
+const iconSun = document.getElementById('icon-sun');
+const iconMoon = document.getElementById('icon-moon');
+const themeToggle = document.getElementById('themeToggle');
+
+function applyTheme(t){
+  if(t === 'dark'){ body.classList.add('theme-dark'); iconSun.style.display = 'inline'; iconMoon.style.display = 'none'; }
+  else { body.classList.remove('theme-dark'); iconSun.style.display = 'none'; iconMoon.style.display = 'inline'; }
+}
+const saved = localStorage.getItem(THEME_KEY) || 'light';
+applyTheme(saved);
+themeToggle.addEventListener('click', ()=>{
+  const next = body.classList.contains('theme-dark') ? 'light' : 'dark';
+  localStorage.setItem(THEME_KEY, next);
+  applyTheme(next);
+});
+
+const form = document.getElementById('contactForm');
+const nome = document.getElementById('nome');
+const email = document.getElementById('email');
+const msg = document.getElementById('msg');
+
+const LS_KEY = 'contato_dados';
+const SS_KEY = 'contato_enviado';
+
+window.addEventListener('load', ()=>{
+  const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+  if(saved.nome) nome.value = saved.nome;
+  if(saved.email) email.value = saved.email;
+  if(saved.msg) msg.value = saved.msg;
+});
+
+[nome,email,msg].forEach(inp=>{
+  inp.addEventListener('input', ()=>{
+    localStorage.setItem(LS_KEY, JSON.stringify({
+      nome:nome.value, email:email.value, msg:msg.value
+    }));
+  });
+});
+
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  const dados = { nome:nome.value, email:email.value, msg:msg.value };
+  sessionStorage.setItem(SS_KEY, JSON.stringify(dados));
+  alert('Mensagem enviada! Dados salvos na sessão.');
+  form.reset();
+  localStorage.removeItem(LS_KEY);
+});
+</script>
+</body>
+</html>
