@@ -5,239 +5,157 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Manu — Loja</title>
 <style>
-  :root{
-    --pink:#ff5aa8;
-    --pink-dark:#ff2e84;
-    --black:#000;
-    --white:#fff;
-    --card-w:360px;
-  }
-  /* Tema */
-  body { font-family: Inter, Arial, sans-serif; margin:0; background:var(--white); color:var(--black); transition: background .25s, color .25s; }
-  body.theme-dark { background:var(--black); color:var(--pink); }
-  /* Nav */
-  .nav{
-    display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--black);color:var(--pink);
-  }
-  .nav .brand{font-weight:800;letter-spacing:0.4px}
-  .nav a{color:var(--pink);text-decoration:none;margin-left:18px;font-weight:600}
-  .nav .right{display:flex;align-items:center;gap:12px}
-  .theme-btn{
-    background:transparent;border:2px solid var(--pink);border-radius:8px;padding:6px;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(--pink)
-  }
-  .container{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;padding:28px;}
-  .card{width:var(--card-w);border-radius:12px;border:2px solid var(--pink);padding:16px;background:var(--white);box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:transform .12s;}
-  body.theme-dark .card{background:#0b0b0b;border-color:var(--pink)}
-  .card h3{margin:0 0 8px 0;color:var(--black);font-size:18px}
-  body.theme-dark .card h3{color:var(--pink)}
-  .product-list{display:grid;gap:10px}
-  .product-row{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;border:1px dashed rgba(255,90,168,0.15)}
-  .price{font-weight:700}
-  .add-btn{background:var(--pink);color:var(--black);border:none;padding:6px 10px;border-radius:8px;cursor:pointer}
-  .cart-card{width:420px;max-width:92%;border-radius:12px;border:2px solid var(--pink);padding:14px;background:var(--white)}
-  body.theme-dark .cart-card{background:#0b0b0b}
-  .cart-items{max-height:220px;overflow:auto;margin:10px 0;display:flex;flex-direction:column;gap:8px}
-  .cart-item{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;border:1px solid rgba(255,90,168,0.12)}
-  .small{font-size:13px;color: #666}
-  .total-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:800;font-size:18px}
-  .finalizar{display:block;width:100%;margin-top:12px;background:var(--pink);color:var(--black);border:none;padding:10px;border-radius:8px;cursor:pointer;font-weight:700}
-  /* responsive */
-  @media (max-width:900px){ .container{flex-direction:column;align-items:center;} .card{width:92%} .cart-card{width:92%} }
+:root{
+  --pink:#ff5aa8;
+  --pink-dark:#ff2e84;
+  --black:#000;
+  --white:#fff;
+  --card-w:360px;
+}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  margin:0;
+  color:var(--black);
+  background:var(--white);
+  transition:background .25s,color .25s;
+  position:relative;
+  min-height:100vh;
+}
+
+body::before{
+  content:"";
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background:url('fundo.png') center/cover no-repeat;
+  opacity:0.2;
+  z-index:-1;
+}
+
+body.theme-dark{background:var(--black);color:var(--pink)}
+
+/* Nav */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--black);color:var(--pink);
+}
+.nav a{color:var(--pink);text-decoration:none;margin-left:18px;font-weight:600}
+.theme-btn{
+  background:transparent;border:2px solid var(--pink);border-radius:8px;padding:6px;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(--pink)
+}
+
+.container{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;padding:28px;}
+.card{width:var(--card-w);border-radius:12px;border:2px solid var(--pink);padding:16px;background:var(--white);box-shadow:0 6px 18px rgba(0,0,0,0.06);transition:transform .12s;}
+body.theme-dark .card{background:#0b0b0b;border-color:var(--pink)}
+.card h3{margin:0 0 8px 0;color:var(--black);font-size:18px}
+body.theme-dark .card h3{color:var(--pink)}
+.product-list{display:grid;gap:10px}
+.product-row{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;border:1px dashed rgba(255,90,168,0.15)}
+.add-btn{background:var(--pink);color:var(--black);border:none;padding:6px 10px;border-radius:8px;cursor:pointer}
+.cart-card{width:420px;max-width:92%;border-radius:12px;border:2px solid var(--pink);padding:14px;background:var(--white)}
+body.theme-dark .cart-card{background:#0b0b0b}
+.cart-items{max-height:220px;overflow:auto;margin:10px 0;display:flex;flex-direction:column;gap:8px}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;border:1px solid rgba(255,90,168,0.12)}
+.small{font-size:13px;color: #666}
+.total-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:800;font-size:18px}
+.finalizar{display:block;width:100%;margin-top:12px;background:var(--pink);color:var(--black);border:none;padding:10px;border-radius:8px;cursor:pointer;font-weight:700}
+@media (max-width:900px){ .container{flex-direction:column;align-items:center;} .card{width:92%} .cart-card{width:92%} }
 </style>
 </head>
 <body>
-  <nav class="nav">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:36px;height:36px;border-radius:8px;background:var(--pink);display:flex;align-items:center;justify-content:center;color:black;font-weight:800">M</div>
-      <a href="index.html" style="margin-left:14px">Início</a>
-      <a href="form.html">Contato</a>
+<nav class="nav">
+  <div style="display:flex;align-items:center;gap:12px">
+    <div style="width:36px;height:36px;border-radius:8px;background:var(--pink);display:flex;align-items:center;justify-content:center;color:black;font-weight:800">M</div>
+    <a href="index.html" style="margin-left:14px">Início</a>
+    <a href="form.html">Contato</a>
+  </div>
+  <div class="right">
+    <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+      <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none">
+        <path d="M12 4V2M12 22v-2M4.93 4.93L3.51 3.51M20.49 20.49l-1.42-1.42M4 12H2M22 12h-2M4.93 19.07l-1.42 1.42M20.49 3.51l-1.42 1.42M12 8a4 4 0 100 8 4 4 0 000-8z" stroke="#ffb3d9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="#ffb3d9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span style="font-weight:700">Tema</span>
+    </button>
+  </div>
+</nav>
+
+<main class="container">
+  <section class="card" aria-labelledby="catalogoTitle">
+    <h3 id="catalogoTitle">Catálogo — Delícias</h3>
+    <div class="product-list" id="catalog"></div>
+  </section><br>
+
+  <aside class="cart-card" aria-labelledby="cartTitle">
+    <h3 id="cartTitle">Seu Carrinho</h3>
+    <div class="small">Os itens ficam salvos enquanto a aba estiver aberta (sessionStorage).</div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="total-row">
+      <div>Total</div>
+      <div id="totalValue">R$ 0,00</div>
     </div>
-
-    <div class="right">
-      <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-        <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none">
-          <path d="M12 4V2M12 22v-2M4.93 4.93L3.51 3.51M20.49 20.49l-1.42-1.42M4 12H2M22 12h-2M4.93 19.07l-1.42 1.42M20.49 3.51l-1.42 1.42M12 8a4 4 0 100 8 4 4 0 000-8z" stroke="#ffb3d9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="#ffb3d9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span style="font-weight:700">Tema</span>
-      </button>
-    </div>
-  </nav>
-
-  <main class="container">
-    <!-- Catálogo -->
-    <section class="card" aria-labelledby="catalogoTitle">
-      <h3 id="catalogoTitle">Catálogo — Delícias</h3>
-      <div class="product-list" id="catalog">
-      </div>
-    </section>
-
-    <!-- Carrinho -->
-    <aside class="cart-card" aria-labelledby="cartTitle">
-      <h3 id="cartTitle">Seu Carrinho</h3>
-      <div class="small">Os itens ficam salvos enquanto a aba estiver aberta (sessionStorage).</div>
-      <div class="cart-items" id="cartItems">
-      </div>
-
-      <div class="total-row">
-        <div>Total</div>
-        <div id="totalValue">R$ 0,00</div>
-      </div>
-      <button class="finalizar" id="finalizarBtn">Finalizar Compra</button>
-    </aside>
-  </main>
+    <button class="finalizar" id="finalizarBtn">Finalizar Compra</button>
+  </aside>
+</main>
 
 <script>
-const THEME_KEY = 'sereia_tema';
-const body = document.body;
-const iconSun = document.getElementById('icon-sun');
-const iconMoon = document.getElementById('icon-moon');
-const themeToggle = document.getElementById('themeToggle');
+const THEME_KEY='sereia_tema';
+const body=document.body;
+const iconSun=document.getElementById('icon-sun');
+const iconMoon=document.getElementById('icon-moon');
+const themeToggle=document.getElementById('themeToggle');
 
-function applyTheme(t){
-  if(t === 'dark'){ body.classList.add('theme-dark'); iconSun.style.display = 'inline'; iconMoon.style.display = 'none'; }
-  else { body.classList.remove('theme-dark'); iconSun.style.display = 'none'; iconMoon.style.display = 'inline'; }
-}
-const saved = localStorage.getItem(THEME_KEY) || 'light';
-applyTheme(saved);
-themeToggle.addEventListener('click', ()=>{
-  const next = body.classList.contains('theme-dark') ? 'light' : 'dark';
-  localStorage.setItem(THEME_KEY, next);
-  applyTheme(next);
-});
+function applyTheme(t){if(t==='dark'){body.classList.add('theme-dark');iconSun.style.display='inline';iconMoon.style.display='none';}else{body.classList.remove('theme-dark');iconSun.style.display='none';iconMoon.style.display='inline';}}
+applyTheme(localStorage.getItem(THEME_KEY)||'light');
+themeToggle.addEventListener('click',()=>{const next=body.classList.contains('theme-dark')?'light':'dark';localStorage.setItem(THEME_KEY,next);applyTheme(next);});
 
-const produtos = [
-  { id: 'p1', nome:'Chocolate', preco: 6.50 },
-  { id: 'p2', nome:'Sorvete', preco: 8.00 },
-  { id: 'p3', nome:'Brigadeiro', preco: 3.50 },
-  { id: 'p4', nome:'Brownie', preco: 7.00 },
-  { id: 'p5', nome:'Cookie', preco: 4.00 },
-  { id: 'p6', nome:'Caramelo', preco: 2.50 },
-  { id: 'p7', nome:'Açaí', preco: 12.00 },
-  { id: 'p8', nome:'Doce de Leite', preco: 5.00 }
+const produtos=[
+  {id:'p1',nome:'Chocolate',preco:6.5},
+  {id:'p2',nome:'Sorvete',preco:8},
+  {id:'p3',nome:'Brigadeiro',preco:3.5},
+  {id:'p4',nome:'Brownie',preco:7},
+  {id:'p5',nome:'Cookie',preco:4},
+  {id:'p6',nome:'Caramelo',preco:2.5},
+  {id:'p7',nome:'Açaí',preco:12},
+  {id:'p8',nome:'Doce de Leite',preco:5}
 ];
 
-const catalogEl = document.getElementById('catalog');
-
-function formatBR(v){
-  return 'R$ ' + Number(v).toFixed(2).replace('.',',');
-}
-
-function renderCatalog(){
-  catalogEl.innerHTML = '';
-  produtos.forEach(p=>{
-    const row = document.createElement('div');
-    row.className = 'product-row';
-    row.innerHTML = `<div style="display:flex;flex-direction:column">
-        <strong>${p.nome}</strong>
-        <small class="small">${formatBR(p.preco)}</small>
-      </div>
-      <div>
-        <button class="add-btn" data-id="${p.id}">Adicionar</button>
-      </div>`;
-    catalogEl.appendChild(row);
-  });
-}
+const catalogEl=document.getElementById('catalog');
+function formatBR(v){return 'R$ '+Number(v).toFixed(2).replace('.',',');}
+function renderCatalog(){catalogEl.innerHTML='';produtos.forEach(p=>{const row=document.createElement('div');row.className='product-row';row.innerHTML=`<div style="display:flex;flex-direction:column"><strong>${p.nome}</strong><small class="small">${formatBR(p.preco)}</small></div><div><button class="add-btn" data-id="${p.id}">Adicionar</button></div>`;catalogEl.appendChild(row);});}
 renderCatalog();
 
-const CART_KEY = 'sereia_carrinho'; 
-let cart = JSON.parse(sessionStorage.getItem(CART_KEY) || '[]'); 
+const CART_KEY='sereia_carrinho';
+let cart=JSON.parse(sessionStorage.getItem(CART_KEY)||'[]');
+function saveCart(){sessionStorage.setItem(CART_KEY,JSON.stringify(cart));}
+function findProductById(id){return produtos.find(x=>x.id===id);}
+function addToCart(id){const existing=cart.find(item=>item.id===id);if(existing){existing.qty+=1;}else{const p=findProductById(id);cart.push({id:p.id,nome:p.nome,preco:p.preco,qty:1});}saveCart();renderCart();}
+function removeFromCart(id){cart=cart.filter(i=>i.id!==id);saveCart();renderCart();}
+function decreaseQty(id){const it=cart.find(i=>i.id===id);if(!it)return;it.qty-=1;if(it.qty<=0)removeFromCart(id);else saveCart();renderCart();}
 
-function saveCart(){ sessionStorage.setItem(CART_KEY, JSON.stringify(cart)); }
-function findProductById(id){ return produtos.find(x=>x.id===id); }
+const cartItemsEl=document.getElementById('cartItems');
+const totalValueEl=document.getElementById('totalValue');
+function calculateTotal(){let total=0;for(let i=0;i<cart.length;i++){const item=cart[i];total+=Number(item.preco)*Number(item.qty);}return total;}
+function renderCart(){cartItemsEl.innerHTML='';if(cart.length===0){cartItemsEl.innerHTML='<div class="small">Carrinho vazio</div>';}else{cart.forEach(item=>{const div=document.createElement('div');div.className='cart-item';div.innerHTML=`<div style="display:flex;flex-direction:column"><strong>${item.nome}</strong><small class="small">${item.qty} x ${formatBR(item.preco)}</small></div><div style="display:flex;gap:8px;align-items:center"><button style="padding:6px;border-radius:6px;border:none;background:#fff;cursor:pointer" onclick="decreaseQty('${item.id}')">−</button><button style="padding:6px;border-radius:6px;border:none;background:#fff;cursor:pointer" onclick="addToCart('${item.id}')">＋</button><button style="padding:6px;border-radius:8px;border:none;background:var(--pink);cursor:pointer;color:black" onclick="removeFromCart('${item.id}')">Remover</button></div>`;cartItemsEl.appendChild(div);});}totalValueEl.textContent=formatBR(calculateTotal());}
 
-function addToCart(id){
-  const existing = cart.find(item => item.id === id);
-  if(existing){ existing.qty += 1; }
-  else{
-    const p = findProductById(id);
-    cart.push({ id: p.id, nome: p.nome, preco: p.preco, qty: 1 });
-  }
-  saveCart();
-  renderCart();
-}
+document.addEventListener('click',function(e){const btn=e.target.closest('.add-btn');if(btn){addToCart(btn.dataset.id);}});
 
-function removeFromCart(id){
-  cart = cart.filter(i => i.id !== id);
-  saveCart();
-  renderCart();
-}
-
-function decreaseQty(id){
-  const it = cart.find(i => i.id===id);
-  if(!it) return;
-  it.qty = it.qty - 1;
-  if(it.qty <= 0) removeFromCart(id);
-  else saveCart();
-  renderCart();
-}
-
-const cartItemsEl = document.getElementById('cartItems');
-const totalValueEl = document.getElementById('totalValue');
-
-function calculateTotal(){
-  let total = 0.0;
-  for(let i=0;i<cart.length;i++){
-    const item = cart[i];
-    total += Number(item.preco) * Number(item.qty);
-  }
-  return total;
-}
-
-function renderCart(){
-  cartItemsEl.innerHTML = '';
-  if(cart.length === 0){
-    cartItemsEl.innerHTML = '<div class="small">Carrinho vazio</div>';
-  } else {
-    cart.forEach(item=>{
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `<div style="display:flex;flex-direction:column">
-          <strong>${item.nome}</strong>
-          <small class="small">${item.qty} x ${formatBR(item.preco)}</small>
-        </div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <button style="padding:6px;border-radius:6px;border:none;background:#fff;cursor:pointer" onclick="decreaseQty('${item.id}')">−</button>
-          <button style="padding:6px;border-radius:6px;border:none;background:#fff;cursor:pointer" onclick="addToCart('${item.id}')">＋</button>
-          <button style="padding:6px;border-radius:8px;border:none;background:var(--pink);cursor:pointer;color:black" onclick="removeFromCart('${item.id}')">Remover</button>
-        </div>`;
-      cartItemsEl.appendChild(div);
-    });
-  }
-  const total = calculateTotal();
-  totalValueEl.textContent = formatBR(total);
-}
-
-document.addEventListener('click', function(e){
-  const btn = e.target.closest('.add-btn');
-  if(btn){
-    const id = btn.dataset.id;
-    addToCart(id);
-  }
-});
-
-const finalizarBtn = document.getElementById('finalizarBtn');
-finalizarBtn.addEventListener('click', function(){
-  const total = calculateTotal();
-  if(cart.length === 0){
-    alert('Seu carrinho está vazio!');
-    return;
-  }
-  alert('Compra finalizada\nTotal: ' + formatBR(total));
-
-  cart = [];
-  saveCart();
-  renderCart();
-});
+document.getElementById('finalizarBtn').addEventListener('click',function(){if(cart.length===0){alert('Seu carrinho está vazio!');return;}alert('Compra finalizada\nTotal: '+formatBR(calculateTotal()));cart=[];saveCart();renderCart();});
 
 renderCart();
+window.addToCart=addToCart;
+window.removeFromCart=removeFromCart;
+window.decreaseQty=decreaseQty;
+window.formatBR=formatBR;
 
-window.addToCart = addToCart;
-window.removeFromCart = removeFromCart;
-window.decreaseQty = decreaseQty;
-window.formatBR = formatBR;
+window.addEventListener("storage", (event) => {
+  if (event.key === THEME_KEY) {
+    applyTheme(event.newValue);
+    alert("O tema foi alterado em outra aba para: " + event.newValue);
+  }
+});
+
 </script>
 </body>
 </html>
